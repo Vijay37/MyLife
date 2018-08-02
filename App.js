@@ -1,23 +1,46 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import loginScreen from './screens/loginScreen';
+import constants from './additionalComponents/constants';
+
+class HomeScreen extends React.Component {
+  static navigationOptions = {header: null};
+  render() {
+    return (
+      <View style = {styles.container}>
+          <Button onPress = {() => this.props.navigation.navigate("loginScreen")}
+          color="#FFFF"
+          fontWeight="bold"
+          fontSize="30"
+          accessibilityLabel="Click to Continue" title='My Life'></Button>
+      </View>
+    );
+  }
+}
+
+const ScreenStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    loginScreen: loginScreen,
+  },
+  {
+    initialRouteName: 'Home',
+  }
+);
 
 export default class App extends React.Component {
   render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+    return <ScreenStack />;
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: constants.PRIMARY_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
+
   },
 });
